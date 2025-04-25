@@ -2,6 +2,8 @@
 Pollen Science
 ==================
 
+npx expo start
+
 https://docs.expo.dev/guides/publishing-websites/
 
 https://github.com/CocoaPods/CocoaPods/issues/12145#issuecomment-2167668416
