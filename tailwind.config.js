@@ -19,9 +19,10 @@ module.exports = {
         tertiary: "#EF2967",
       },
       fontFamily: {
-        "work-black": ["WorkSans-Black", "sans-serif"],
-        "work-light": ["WorkSans-Light", "sans-serif"],
-        "work-medium": ["WorkSans-Medium", "sans-serif"],
+        "work-black": ["Rubik-Black", "sans-serif"],
+        "work-light": ["Rubik-Light", "sans-serif"],
+        "work-medium": ["Rubik-Medium", "sans-serif"],
+        "work-regular": ["Rubik-Regular", "sans-serif"],
       },
     },
   },
