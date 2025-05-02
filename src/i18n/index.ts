@@ -6,6 +6,7 @@ import { I18nManager } from "react-native";
 import translationEn from "./locales/en-US/translations.json";
 import translationKo from "./locales/ko-KR/translations.json";
 import translationAr from "./locales/ar-SA/translations.json";
+import translationDe from "./locales/de-DE/translations.json";
 
 const resources = {
   "en-US": { translation: translationEn },
@@ -14,6 +15,8 @@ const resources = {
   ko: { translation: translationKo },
   "ar-SA": { translation: translationAr },
   ar: { translation: translationAr },
+  "de-DE": { translation: translationDe },
+  de: { translation: translationDe },
 };
 
 const RTL_LANGUAGES = ["ar", "ar-SA"];
@@ -62,6 +65,7 @@ const initI18n = async () => {
         "en-*": ["en-US", "en"],
         "ko-*": ["ko-KR", "ko", "en-US"],
         "ar-*": ["ar-SA", "ar", "en-US"],
+        "de-*": ["de-DE", "de", "en-US"],
         default: ["en-US"],
       },
       interpolation: {
