@@ -1,11 +1,9 @@
 import { useLocations } from "@/presentation/hooks/useLocations";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// import "@/src/i18n";
-import { useTranslation } from 'react-i18next';
-import { View, Text, FlatList, } from "react-native";
+import { useTranslation } from "react-i18next";
+import { View, Text, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { I18nManager } from "react-native";
-import CircularProgress from "@/components/CircularProgress";
 export default function LocationsScreen() {
   // const { locationsQuery } = useLocations();
   const { t, i18n } = useTranslation();
@@ -32,15 +30,15 @@ export default function LocationsScreen() {
     }
   };
 
-
   return (
     <SafeAreaView>
       <View className="bg-gray-900 mx-2 font-work-light">
         {/* <Text className="text-3xl font-work-regular color-white">
           Locations
         </Text> */}
-        <Text className="text-3xl font-work-regular color-white">{t('home_screen.welcome')}</Text>
-
+        <Text className="text-3xl font-work-regular color-white">
+          {t("home_screen.welcome")}
+        </Text>
 
         {/* <FlatList
           data={locationsQuery.data}
@@ -53,29 +51,35 @@ export default function LocationsScreen() {
           )}
         /> */}
         <Text className=" ">
-        <Text className="bg-gray-200 text-gray-800 p-1" onPress={() => handleLanguageChange("de-DE")}>
-German
+          <Text
+            className="bg-gray-200 text-gray-800 p-1"
+            onPress={() => handleLanguageChange("de-DE")}
+          >
+            German
+          </Text>
+          ----
+          <Text
+            className=" bg-gray-200 text-gray-800 p-1"
+            onPress={() => handleLanguageChange("ko-KR")}
+          >
+            Korean
+          </Text>
+          ----
+          <Text
+            className="bg-gray-200 text-gray-800 p-1"
+            onPress={() => handleLanguageChange("en-US")}
+          >
+            English
+          </Text>
+          ----
+          <Text
+            className="bg-gray-200 text-gray-800 p-1"
+            onPress={() => handleLanguageChange("ar-SA")}
+          >
+            Arabic
+          </Text>
+          ---- ----
         </Text>
-        ----
-        <Text className=" bg-gray-200 text-gray-800 p-1" onPress={() => handleLanguageChange("ko-KR")}>
-Korean
-        </Text>
-        ----
-        <Text className="bg-gray-200 text-gray-800 p-1" onPress={() => handleLanguageChange("en-US")}>
-English
-        </Text>
-        ----
-        <Text className="bg-gray-200 text-gray-800 p-1" onPress={() => handleLanguageChange("ar-SA")}>
-Arabic
-        </Text>
-        ----
-
-        ----
-        </Text>
-
-
-        <CircularProgress size={300} pgColor = {'#FFEE32'} text={'60 pollen/m³'} strokeWidth={20} textColor={'#ffffff'} progressPercent={60} />
-        
       </View>
     </SafeAreaView>
   );
