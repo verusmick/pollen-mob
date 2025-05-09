@@ -1,7 +1,7 @@
 export interface Pollen {
   name: string;
   data: Datum[];
-  totalValue: number;
+  totalCount: number;
 }
 
 export interface Datum {
