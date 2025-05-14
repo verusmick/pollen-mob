@@ -77,8 +77,10 @@ export function getPollenPercentage(pollenCount: number, pollenMetrics: any) {
 }
 
 export function getPollenPercentageMiddleware(name: any, pollenCount: any) {
+  if (!pollenCount) return { percentage: 0, label: "None" };
   if (name === "Poaceae")
     return getPollenPercentage(pollenCount, grassPollenMetrics);
-  if (name === "Pinaceae" || "Abies") return { percentage: 0, label: "None" };
+  if (name === "Pinaceae" || name === "Abies")
+    return { percentage: 0, label: "None" };
   return getPollenPercentage(pollenCount, birchAndOthersMetrics);
 }

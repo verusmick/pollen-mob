@@ -5,15 +5,12 @@ import { Measurement } from "../interfaces/pollens-response";
 export class PollenMapper {
   static fromThePollenDBToPollen = (measurements: Measurement): Pollen => {
     const { polle, data } = measurements;
-    const totalCount = data.reduce(
-      (accumulator: any, current: any) => accumulator + current.value,
-      0
-    );
+    const measurementCount = data[data.length - 1].value;
     const pollens = {
       name: polle,
       data,
-      totalCount,
-      percentage: getPollenPercentageMiddleware(polle, totalCount),
+      measurementCount,
+      percentage: getPollenPercentageMiddleware(polle, measurementCount),
     };
     return pollens;
   };
