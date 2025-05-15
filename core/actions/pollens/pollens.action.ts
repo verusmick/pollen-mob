@@ -14,10 +14,10 @@ export const pollensAction = async () => {
       pollens: data.measurements
         .map(PollenMapper.fromThePollenDBToPollen)
         .filter((pollen: any) => {
-          const { data, measurementCount } = pollen;
-          return !!measurementCount;
+          const { data, value } = pollen;
+          return !!value;
         })
-        .sort((a, b) => b.percentage.percentage - a.percentage.percentage),
+        .sort((a, b) => b.allergyLevel.percentage - a.allergyLevel.percentage),
     };
     return pollens;
   } catch (error) {

@@ -29,7 +29,7 @@ const CircularProgress = (props: any) => {
 
         {/* Progress Circle */}
         <Circle
-          stroke={props.pgColor ? props.pgColor : "#3b5998"}
+          stroke={props.pgColor ? props.pgColor : "red"}
           fill="none"
           cx={size / 2}
           cy={size / 2}
@@ -45,7 +45,7 @@ const CircularProgress = (props: any) => {
         <SVGText
           fontSize={props.textSize ? props.textSize : "10"}
           x={size / 2}
-          y={size / 2 + (props.textSize ? props.textSize / 2 - 1 : 5)}
+          y={size / 2 + (props.textSize ? props.textSize / 2 - 1 : 25)}
           textAnchor="middle"
           fill={props.textColor ? props.textColor : "#333333"}
         >
@@ -54,21 +54,11 @@ const CircularProgress = (props: any) => {
         <SVGText
           fontSize={props.textSize ? props.textSize : "10"}
           x={size / 2}
-          // y={160}
-          y={size / 2 + (props.textSize ? props.textSize / 1.5 - 1 : 25)}
+          y={size / 2 + (props.textSize ? props.textSize / 1.5 - 1 : 5)}
           textAnchor="middle"
           fill={props.textColor ? props.textColor : "#333333"}
         >
           {`${pollenName}`}
-        </SVGText>
-        <SVGText
-          fontSize={props.textSize ? props.textSize : "10"}
-          x={size / 2}
-          y={size / 2 + (props.textSize ? props.textSize / 1.5 - 1 : 45)}
-          textAnchor="middle"
-          fill={props.textColor ? props.textColor : "#333333"}
-        >
-          {`${pollenRangeLevel}`}
         </SVGText>
       </Svg>
     </View>

@@ -5,12 +5,12 @@ import { Measurement } from "../interfaces/pollens-response";
 export class PollenMapper {
   static fromThePollenDBToPollen = (measurements: Measurement): Pollen => {
     const { polle, data } = measurements;
-    const measurementCount = data[data.length - 1].value;
+    const value = data[data.length - 1].value;
     const pollens = {
       name: polle,
       data,
-      measurementCount,
-      percentage: getPollenPercentageMiddleware(polle, measurementCount),
+      value,
+      allergyLevel: getPollenPercentageMiddleware(polle, value),
     };
     return pollens;
   };
