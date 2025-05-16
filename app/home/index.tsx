@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { SplashScreen } from "expo-router";
 import { allergyRangeColors } from "./pollenRanges";
 import { Pollen } from "@/infrastructure/interfaces/pollen.interface";
+import { MapPin, AlertCircle } from "lucide-react-native";
 // import { calculatePollenAllergieLevel } from "./pollenRanges";
 
 SplashScreen.preventAutoHideAsync();
@@ -48,8 +49,10 @@ export default function HomeScreen() {
           </View>
 
           <View className="flex-row items-center mt-3">
-            {/* <MapPin size={16} color="white" /> */}
-            <Text className="text-white text-sm ml-2">Berlin Tempelhof</Text>
+            <MapPin size={16} color="white" />
+            <Text className="text-white text-sm ml-2">
+              München (Biedersteiner Straße)
+            </Text>
           </View>
         </View>
         <View className="flex items-center justify-center my-2">
@@ -67,26 +70,35 @@ export default function HomeScreen() {
         {/* Alert Card */}
         <Card className="bg-neutral-800 mb-4 p-4 flex items-center">
           <View className="flex-row items-center">
-            {/* <AlertCircle size={18} color="#f87171" /> */}
             <Text className="text-white text-sm ml-2">
               {t(`pollenName.${pollenTopOne?.name}`)}
             </Text>
           </View>
           {pollenTopOne && (
-            <Text
-              className="text-red-500 text-base mt-2"
-              style={{
-                color:
+            <View className="flex-row items-center mt-2">
+              <AlertCircle
+                size={18}
+                color={
                   allergyRangeColors[
                     pollenTopOne?.allergyLevel?.level || "NONE"
-                  ],
-              }}
-            >
-              {t(
-                `home_screen.allergyRanges.${pollenTopOne.allergyLevel.level}`
-              )}{" "}
-              allergy risk
-            </Text>
+                  ]
+                }
+              />
+              <Text
+                className="text-base ml-2"
+                style={{
+                  color:
+                    allergyRangeColors[
+                      pollenTopOne?.allergyLevel?.level || "NONE"
+                    ],
+                }}
+              >
+                {t(
+                  `home_screen.allergyRanges.${pollenTopOne.allergyLevel.level}`
+                )}{" "}
+                allergy risk
+              </Text>
+            </View>
           )}
         </Card>
 
@@ -108,13 +120,19 @@ export default function HomeScreen() {
               <Text className="text-white text-base mb-2">
                 {t(`pollenName.${item.name}`)}
               </Text>
-              <Text
-                className="text-white text-base"
-                style={{ color: allergyRangeColors[item.allergyLevel.level] }}
-              >
-                {t(`home_screen.allergyRanges.${item.allergyLevel.level}`)}{" "}
-                allergy risk
-              </Text>
+              <View className="flex-row items-center">
+                <AlertCircle
+                  size={18}
+                  color={allergyRangeColors[item.allergyLevel.level]}
+                />
+                <Text
+                  className="text-white text-base ml-2"
+                  style={{ color: allergyRangeColors[item.allergyLevel.level] }}
+                >
+                  {t(`home_screen.allergyRanges.${item.allergyLevel.level}`)}{" "}
+                  allergy risk
+                </Text>
+              </View>
             </View>
             <Text className="text-white text-lg ml-4">
               {`${item.value.toFixed()} pollen/m³`}
