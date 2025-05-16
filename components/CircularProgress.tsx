@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import { Svg, Circle, Text as SVGText } from "react-native-svg";
+import { Svg, Circle, Text as SVGText, Image } from "react-native-svg";
 
 const CircularProgress = (props: any) => {
   const {
@@ -40,21 +40,29 @@ const CircularProgress = (props: any) => {
           transform={`rotate(90, ${size / 2}, ${size / 2})`}
           {...{ strokeWidth }}
         />
+        <Image
+          href={require("../assets/images/pollen.png")}
+          x={size / 2 - 50}
+          y={size / 2 - 70}
+          width="100"
+          height="100"
+          preserveAspectRatio="xMidYMid slice"
+        />
 
-        {/* Text */}
         <SVGText
-          fontSize={props.textSize ? props.textSize : "10"}
+          fontSize={props.textSize ? props.textSize : "13"}
           x={size / 2}
-          y={size / 2 + (props.textSize ? props.textSize / 2 - 1 : 25)}
+          y={size / 2 + 80}
           textAnchor="middle"
           fill={props.textColor ? props.textColor : "#333333"}
         >
           {`${text}`}
         </SVGText>
         <SVGText
-          fontSize={props.textSize ? props.textSize : "10"}
+          fontSize={props.textSize ? props.textSize : "15"}
           x={size / 2}
-          y={size / 2 + (props.textSize ? props.textSize / 1.5 - 1 : 5)}
+          y={size / 2 + 60}
+          fontWeight={600}
           textAnchor="middle"
           fill={props.textColor ? props.textColor : "#333333"}
         >
