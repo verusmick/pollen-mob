@@ -5,12 +5,17 @@ import { Measurement } from "../interfaces/pollens-response";
 export class PollenMapper {
   static fromThePollenDBToPollen = (measurements: Measurement): Pollen => {
     const { polle, data } = measurements;
-    const value = data[data.length - 1].value;
+    //This its getting the last item with a value different a 0
+    const lastValue =
+      data
+        .slice()
+        .reverse()
+        .find((item) => item.value)?.value || 0;
     const pollens = {
       name: polle,
       data,
-      value,
-      allergyLevel: getPollenPercentageMiddleware(polle, value),
+      value: lastValue,
+      allergyLevel: getPollenPercentageMiddleware(polle, lastValue),
     };
     return pollens;
   };

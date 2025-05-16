@@ -2,11 +2,16 @@ import { pollenApi } from "@/core/api/pollen-api";
 import { PollensResponse } from "@/infrastructure/interfaces/pollens-response";
 import { PollenMapper } from "@/infrastructure/mappers/pollens.mapper";
 
+const timestampNow = Math.floor(Date.now() / 1000);
+const timestamp24hAgo = timestampNow - 24 * 60 * 60;
 export const pollensAction = async () => {
   try {
-    // const { data } = await pollenApi.get("/measurements", {params:{locations: 'DEBIED', from:'1744040721', to:'1746632721'  }});
     const { data } = await pollenApi.get<PollensResponse>("/measurements", {
-      params: { locations: "DEBIED" },
+      params: {
+        locations: "DEBIED",
+        from: timestamp24hAgo,
+        to: timestampNow,
+      },
     });
     const pollens = {
       from: data.from,

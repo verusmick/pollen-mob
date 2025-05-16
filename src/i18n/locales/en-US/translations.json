@@ -1,7 +1,15 @@
 {
   "home_screen": {
     "tab_name": "Home",
-    "welcome": "Welcome!"
+    "welcome": "Welcome!",
+    "allergyRanges": {
+      "NONE": "None",
+      "VERY_LOW": "Very low",
+      "LOW": "Low",
+      "MODERATE": "Moderate",
+      "HIGH": "High",
+      "VERY_HIGH": "Very high"
+    }
   },
   "explore_screen": {},
   "pollenName": {

@@ -85,7 +85,7 @@ export function getPollenPercentage(pollenCount: number, pollenMetrics: any) {
   }
 }
 
-export function getPollenPercentageMiddleware(name: any, pollenCount: any) {
+export function getPollenPercentageMiddleware(name: any, pollenCount: any = 0) {
   if (!pollenCount) return { percentage: 0, level: "NONE" };
   if (name === "Poaceae")
     return getPollenPercentage(pollenCount.toFixed(), grassPollenMetrics);
