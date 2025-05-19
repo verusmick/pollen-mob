@@ -10,6 +10,8 @@ import { SplashScreen } from "expo-router";
 import { allergyRangeColors } from "./pollenRanges";
 import { Pollen } from "@/infrastructure/interfaces/pollen.interface";
 import { MapPin, AlertCircle } from "lucide-react-native";
+import BarProgress from "@/components/GradientProgressBar";
+import GradientProgressBar from "@/components/GradientProgressBar";
 // import { calculatePollenAllergieLevel } from "./pollenRanges";
 
 SplashScreen.preventAutoHideAsync();
@@ -117,28 +119,29 @@ export default function HomeScreen() {
             className="bg-neutral-800 mb-3 p-4 flex-row items-center"
           >
             <View className="flex-1">
-              <Text className="text-white text-base mb-2">
+            <View className="flex-row items-center mt-1">
+              <Text className="text-white text-base">
                 {t(`pollenName.${item.name}`)}
               </Text>
-              <View className="flex-row items-center">
-                <AlertCircle
-                  size={18}
-                  color={allergyRangeColors[item.allergyLevel.level]}
-                />
-                <Text
-                  className="text-white text-base ml-2"
-                  style={{ color: allergyRangeColors[item.allergyLevel.level] }}
-                >
-                  {t(`home_screen.allergyRanges.${item.allergyLevel.level}`)}{" "}
-                  allergy risk
+              {/* <Text
+                className="text-[10px] ml-2"
+                style={{ color: allergyRangeColors[item.allergyLevel.level] }}
+              >
+                {t(`home_screen.allergyRanges.${item.allergyLevel.level}`)} allergy risk
+              </Text> */}
+            </View>
+              {/* <View className="items-center">
+                <GradientProgressBar progress={item.allergyLevel.percentage}/>
+              </View> */}
+              <View className="flex-row items-center justify-between">
+                <GradientProgressBar progress={item.allergyLevel.percentage} />
+                <Text className="text-white  ml-4">
+                  {`${item.value.toFixed()}`}
                 </Text>
               </View>
             </View>
-            <Text className="text-white text-lg ml-4">
-              {`${item.value.toFixed()} pollen/m³`}
-            </Text>
             {/* <Text className="text-white text-lg ml-4">
-              {item.allergyLevel.level}
+              {`${item.value.toFixed()}`}
             </Text> */}
           </Card>
         ))}
