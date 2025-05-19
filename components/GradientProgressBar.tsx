@@ -24,11 +24,13 @@ const GradientProgressBar = ({
       <Svg width={width} height={height}>
         <Defs>
           <LinearGradient id="grad" x1="0" y1="0" x2="1" y2="0">
-             <Stop offset="20%" stopColor="#00e838" />
-            {(progress > 20) &&<Stop offset="40%" stopColor="#a5eb02" />}
-            {(progress > 40) &&<Stop offset="60%" stopColor="#ebbb02" />}
-            {(progress > 60) && <Stop offset="80%" stopColor="#f27200" />}
-            {(progress > 80) && <Stop offset="100%" stopColor="#ff0000" />}
+            {[
+              <Stop key="20" offset="20%" stopColor="#00e838" />,
+              progress > 20 && <Stop key="40" offset="40%" stopColor="#a5eb02" />,
+              progress > 40 && <Stop key="60" offset="60%" stopColor="#ebbb02" />,
+              progress > 60 && <Stop key="80" offset="80%" stopColor="#f27200" />,
+              progress > 80 && <Stop key="100" offset="100%" stopColor="#ff0000" />,
+            ].filter((child): child is React.ReactElement => Boolean(child))}
           </LinearGradient>
           <ClipPath id="clip">
             <Rect rx={borderRadius} ry={borderRadius} width={width} height={height} />
