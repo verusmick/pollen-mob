@@ -116,20 +116,21 @@ export default function HomeScreen() {
         {pollenList.map((item: Pollen, index: number) => (
           <Card
             key={index}
-            className="bg-neutral-800 mb-3 p-4 flex-row items-center"
+            className="bg-neutral-800 mb-3 p-4 flex-row items-center pt-3"
           >
             <View className="flex-1">
-            <View className="flex-row items-center mt-1">
-              <Text className="text-white text-base">
-                {t(`pollenName.${item.name}`)}
-              </Text>
-              {/* <Text
-                className="text-[10px] ml-2"
-                style={{ color: allergyRangeColors[item.allergyLevel.level] }}
-              >
-                {t(`home_screen.allergyRanges.${item.allergyLevel.level}`)} allergy risk
-              </Text> */}
-            </View>
+              <View className="flex-row items-center">
+                <Text className="text-white text-base">
+                  {t(`pollenName.${item.name}`)}
+                </Text>
+                <Text
+                  className="text-[10px] ml-2"
+                  style={{ color: allergyRangeColors[item.allergyLevel.level] }}
+                >
+                  {t(`home_screen.allergyRanges.${item.allergyLevel.level}`)}{" "}
+                  allergy risk
+                </Text>
+              </View>
               {/* <View className="items-center">
                 <GradientProgressBar progress={item.allergyLevel.percentage}/>
               </View> */}
