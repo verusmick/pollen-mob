@@ -135,7 +135,10 @@ export default function HomeScreen() {
                 <GradientProgressBar progress={item.allergyLevel.percentage}/>
               </View> */}
               <View className="flex-row items-center justify-between">
-                <GradientProgressBar progress={item.allergyLevel.percentage} />
+                <GradientProgressBar
+                  progress={item.allergyLevel.percentage * 3}
+                  id={index}
+                />
                 <Text className="text-white  ml-4">
                   {`${item.value.toFixed()}`}
                 </Text>
