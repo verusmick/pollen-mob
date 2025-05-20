@@ -131,12 +131,9 @@ export default function HomeScreen() {
                   allergy risk
                 </Text>
               </View>
-              {/* <View className="items-center">
-                <GradientProgressBar progress={item.allergyLevel.percentage}/>
-              </View> */}
               <View className="flex-row items-center justify-between">
                 <GradientProgressBar
-                  progress={item.allergyLevel.percentage * 3}
+                  progress={item.allergyLevel.percentage}
                   id={index}
                 />
                 <Text className="text-white  ml-4">
