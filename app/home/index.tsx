@@ -1,11 +1,11 @@
 import CircularProgress from "@/components/CircularProgress";
 import { usePollens } from "@/presentation/hooks/usePollens";
-import { View, Text, FlatList, ScrollView } from "react-native";
+import { View, Text, FlatList, ScrollView, RefreshControl } from "react-native";
 import { I18nManager } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTranslation } from "react-i18next";
 import Card from "@/components/Card";
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { SplashScreen } from "expo-router";
 import { allergyRangeColors } from "./pollenRanges";
 import { Pollen } from "@/infrastructure/interfaces/pollen.interface";
@@ -22,7 +22,12 @@ export default function HomeScreen() {
   // const pollenTopOne = data?.pollens[0];
   const pollenTopOne: Pollen = data?.pollens[0];
   const pollenList = data?.pollens.slice(1) || [];
+  const [refreshing, setRefreshing] = useState(false);
 
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    pollensQuery.refetch().finally(() => setRefreshing(false));
+  }, [pollensQuery]);
   const { t, i18n } = useTranslation();
   const donutProps = {
     size: 260,
@@ -41,7 +46,16 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView className="bg-neutral-900 flex-1">
-      <ScrollView className="bg-neutral-900 flex-1 p-4">
+      <ScrollView
+        className="bg-neutral-900 flex-1 p-4"
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor="#fff" // optional: spinner color
+          />
+        }
+      >
         {/* Header */}
         <View className="">
           <View className="flex items-center">

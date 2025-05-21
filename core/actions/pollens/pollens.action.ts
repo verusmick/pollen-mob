@@ -24,6 +24,7 @@ export const pollensAction = async () => {
         })
         .sort((a, b) => b.allergyLevel.percentage - a.allergyLevel.percentage),
     };
+    console.log('NEW DATA')
     return pollens;
   } catch (error) {
     console.log(error);
