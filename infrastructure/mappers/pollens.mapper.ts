@@ -5,12 +5,7 @@ import { Measurement } from "../interfaces/pollens-response";
 export class PollenMapper {
   static fromThePollenDBToPollen = (measurements: Measurement): Pollen => {
     const { polle, data } = measurements;
-    //This its getting the last item with a value different a 0
-    const lastValue =
-      data
-        .slice()
-        .reverse()
-        .find((item) => item.value)?.value || 0;
+    const lastValue = data[data.length -1].value;
     const pollens = {
       name: polle,
       data,
