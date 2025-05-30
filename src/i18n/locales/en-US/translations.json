@@ -11,6 +11,9 @@
       "VERY_HIGH": "Very high"
     }
   },
+  "location_screen": {
+    "title": "Locations"
+  },
   "explore_screen": {},
   "pollenName": {
     "Acer": "Maple",
@@ -65,5 +68,11 @@
     "Ulmus": "Elm",
     "Urtica": "Nettle",
     "Varia": "Varia"
+  },
+  "components": {
+    "locationSearchInput": {
+      "inputLabel": "Search location",
+      "cancel": "Cancel"
+    }
   }
 }

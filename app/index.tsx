@@ -1,8 +1,7 @@
 import { Redirect } from "expo-router";
-import { SafeAreaView, Text } from "react-native";
 
 const PollenApp = () => {
-  return <Redirect href="/home" />;
+  return <Redirect href="/(tabs)/locations" />;
 };
 
 export default PollenApp;

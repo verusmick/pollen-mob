@@ -1,6 +1,4 @@
-
-Pollen Science
-==================
+# Pollen Science
 
 npx expo start
 
@@ -10,13 +8,10 @@ https://github.com/CocoaPods/CocoaPods/issues/12145#issuecomment-2167668416
 
 https://stackoverflow.com/a/79086359
 
-
-
-
 Export your app
 You need to export your web project into a dist directory. To do this, run:
 
-Terminal
+Terminal2
 
 Copy
 

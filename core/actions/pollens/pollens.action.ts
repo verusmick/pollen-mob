@@ -4,11 +4,11 @@ import { PollenMapper } from "@/infrastructure/mappers/pollens.mapper";
 
 const timestampNow = Math.floor(Date.now() / 1000);
 const timestamp24hAgo = timestampNow - 24 * 60 * 60;
-export const pollensAction = async () => {
+export const pollensAction = async (locationId: string) => {
   try {
     const { data } = await pollenApi.get<PollensResponse>("/measurements", {
       params: {
-        locations: "DEBIED",
+        locations: locationId,
         from: timestamp24hAgo,
         to: timestampNow,
       },

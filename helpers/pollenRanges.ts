@@ -1,12 +1,3 @@
-export const allergyRangeColors = {
-  NONE: "#FFFFFF",
-  VERY_LOW: "#00e838",
-  LOW: "#a5eb02",
-  MODERATE: "#ebbb02",
-  HIGH: "#f27200",
-  VERY_HIGH: "#ff0000",
-};
-
 const grassPollenMetrics = {
   ranges: [
     { level: "NONE", range: [0, 0] },

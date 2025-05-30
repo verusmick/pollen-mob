@@ -5,7 +5,9 @@ import { LocationMapper } from "@/infrastructure/mappers/location.mapper";
 export const locationsAction = async () => {
   try {
     const { data } = await pollenApi.get<LocationsResponse[]>("/locations");
-    const locations = data.map(LocationMapper.fromThePollenDBToLocation);
+    const locations = data
+      .map(LocationMapper.fromThePollenDBToLocation)
+      .filter((loc) => loc.lat !== 0 && loc.lon !== 0);
     return locations;
   } catch (error) {
     console.log(error);

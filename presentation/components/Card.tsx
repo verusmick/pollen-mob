@@ -1,12 +1,10 @@
+import { View, Text } from "react-native";
 import React, { ReactNode } from "react";
-import { View } from "react-native";
-
 interface CardProps {
   children: ReactNode;
   className?: string;
 }
-
-const Card: React.FC<CardProps> = ({ children, className = "" }) => {
+const Card = ({ children, className = "" }: CardProps) => {
   return (
     <View className={`rounded-2xl shadow-md p-4 ${className}`}>{children}</View>
   );
