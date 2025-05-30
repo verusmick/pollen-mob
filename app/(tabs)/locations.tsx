@@ -14,6 +14,7 @@ import {
 } from "@/infrastructure/interfaces/location.interface";
 import LocationSearchInput from "@/presentation/components/LocationSearchInput";
 import { useTranslation } from "react-i18next";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const LocationsScreen = () => {
   const { t } = useTranslation();
@@ -26,23 +27,52 @@ const LocationsScreen = () => {
     useLocationsSelectedStore();
   const { setCurrentLocation } = useCurrentLocationSelectedStore();
   const locationsSelected = getLocationsSelectedArray();
-
+  const prevLocationsDataRef = useRef<Location[]>([]);
+  const [enrichedLocations, setEnrichedLocations] = useState<
+    LocationWithMeasurement[]
+  >([]);
   const addNewSelectedLocation = async (location: Location) => {
     const locationWithPollen = await linkPollen(location);
-    addLocation(locationWithPollen as LocationWithMeasurement);
+    // addLocation(locationWithPollen as LocationWithMeasurement);
   };
+
+  const functionTETE = useCallback(
+    async (locations: Location[]) => {
+      const enriched = await Promise.all(
+        locations.map(async (location) => {
+          const locationWithPollen = await linkPollen(location);
+          return locationWithPollen as LocationWithMeasurement;
+        })
+      );
+      setEnrichedLocations(enriched);
+      console.log("tete", enriched);
+    },
+    [linkPollen]
+  );
+
+  useEffect(() => {
+    // Only call if locationsData is not empty and has changed
+    if (
+      locationsData.length > 0 &&
+      JSON.stringify(prevLocationsDataRef.current) !==
+        JSON.stringify(locationsData)
+    ) {
+      prevLocationsDataRef.current = locationsData;
+      functionTETE(locationsData);
+    }
+  }, [locationsData, functionTETE]);
 
   return (
     <ScrollView className="bg-neutral-900 flex-1 p-6">
       <Text className="text-white text-xl font-bold">
         {t("location_screen.title")}
       </Text>
-      <LocationSearchInput
+      {/* <LocationSearchInput
         locations={locationsData}
         onSelectLocation={addNewSelectedLocation}
-      />
+      /> */}
       <FlatList
-        data={locationsSelected}
+        data={enrichedLocations}
         keyExtractor={(index) => index.id}
         renderItem={({ item, index }) => {
           const hasPollenData = item.pollenMeasurement?.pollens?.length > 0;

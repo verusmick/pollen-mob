@@ -12,10 +12,12 @@ import AlertCard from "@/presentation/components/AlertCard";
 import { allergyRangeColors } from "@/constants/Colors";
 import PollenCard from "@/presentation/components/PollenCard";
 import useCurrentLocationSelectedStore from "@/store/useCurrentLocationSelectedStore";
+import { useRouter } from "expo-router";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function HomeScreen() {
+    const router = useRouter();
   const [refreshing, setRefreshing] = useState(false);
   const { currentLocation } = useCurrentLocationSelectedStore();
 

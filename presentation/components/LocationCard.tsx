@@ -31,20 +31,20 @@ const LocationCard = ({
           {isMyLocation && (
             <Text className="text-gray-300 text-sm">My Location</Text>
           )}
-          <AllergyIndicatorLabel
+          {/* <AllergyIndicatorLabel
             level={firstPollenEntry?.allergyLevel?.level}
-          />
+          /> */}
         </View>
 
         {/* Right section */}
-        {firstPollenEntry?.value != null && (
+        {/* {firstPollenEntry?.value != null && (
           <View className="items-end">
             <Text className="text-white text-5xl font-extrabold">
               {firstPollenEntry.value.toFixed()}
             </Text>
             <Text className="text-gray-300 text-sm mt-1">pollen/m³</Text>
           </View>
-        )}
+        )} */}
       </Card>
     </Pressable>
   );
