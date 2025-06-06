@@ -88,8 +88,10 @@ const LocationsScreen = () => {
 
 
   return (
-    <SafeAreaViewWrapper className="bg-neutral-900">
-
+      <SafeAreaViewWrapper className="bg-neutral-900">
+      {isLoading ? (
+        <Loading />
+      ) : (
         <View className="flex-1 px-4" style={{ zIndex: 1 }}>
           <Text className="text-white text-2xl font-bold mt-2">
             {t("location_screen.title")}
@@ -122,7 +124,7 @@ const LocationsScreen = () => {
             }}
           />
         </View>
-
+      )}
     </SafeAreaViewWrapper>
   );
 };

@@ -80,9 +80,9 @@ export default function Layout() {
   useEffect(() => {
     getCurrentUserLocation();
   }, []);
-  // if (!isAppReady) {
-  //   return <SplashScreenView />;
-  // }
+  if (!isAppReady) {
+    return <SplashScreenView />;
+  }
   return (
     <Tabs
       screenOptions={{
