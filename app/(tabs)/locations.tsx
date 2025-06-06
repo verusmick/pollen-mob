@@ -18,6 +18,7 @@ import {
 } from "@/infrastructure/interfaces/location.interface";
 import useLoaderStore from "@/store/useLoaderStore";
 import Loading from "@/presentation/components/Loading";
+import { useEffect } from "react";
 
 const LocationsScreen = () => {
   const { t } = useTranslation();
@@ -52,19 +53,51 @@ const LocationsScreen = () => {
     return dataLocations.sort((a, b) => b.ts - a.ts);
   };
 
+    const testLocationData = [  {
+        "id": "DELEIP",
+        "name": "Leipzig",
+        "lon": 12.387639,
+        "lat": 51.330956
+    },
+        {
+        "id": "DEBERL2",
+        "name": "Berlin (Tempelhof)",
+   
+        "lon": 13.401833,
+        "lat": 52.467444
+    },
+        {
+        "id": "DEALTO",
+        "name": "Alt\u00f6tting",
+        "network": "ePIN",
+        "lon": 12.675333,
+        "lat": 48.232689
+    },
+   
+      
+  ]
+
+  useEffect(()=>{
+    
+    testLocationData.forEach((location)=>{
+      addNewSelectedLocation(location)
+      
+    })
+  },[])
+
+
+
   return (
     <SafeAreaViewWrapper className="bg-neutral-900">
-      {isLoading ? (
-        <Loading />
-      ) : (
+
         <View className="flex-1 px-4" style={{ zIndex: 1 }}>
           <Text className="text-white text-2xl font-bold mt-2">
             {t("location_screen.title")}
           </Text>
-          <LocationSearchInput
+          {/* <LocationSearchInput
             locations={locationsData}
             onSelectLocation={addNewSelectedLocation}
-          />
+          /> */}
 
           <FlatList
             data={getLocationsSelected(locationsSelected)}
@@ -89,7 +122,7 @@ const LocationsScreen = () => {
             }}
           />
         </View>
-      )}
+
     </SafeAreaViewWrapper>
   );
 };

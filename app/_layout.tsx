@@ -26,7 +26,7 @@ const RootLayout = () => {
     if (fontsLoaded && i18nReady) SplashScreen.hideAsync();
   }, [fontsLoaded, i18nReady, error]);
 
-  if (!fontsLoaded || !i18nReady || error) return <SplashScreenView />;
+  // if (!fontsLoaded || !i18nReady || error) return <SplashScreenView />;
 
   return (
     <QueryClientProvider client={queryClient}>
