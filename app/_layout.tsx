@@ -4,12 +4,16 @@ import "./global.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
 import "@/src/i18n";
-
+import { Host } from "react-native-portalize";
+import { useTranslation } from "react-i18next";
+import SplashScreenView from "@/presentation/components/SplashScreenView";
 // Create a client
 const queryClient = new QueryClient();
 SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
+  const { i18n } = useTranslation();
+  const i18nReady = i18n.isInitialized;
   const [fontsLoaded, error] = useFonts({
     "Rubik-Black": require("../assets/fonts/Rubik-Black.ttf"),
     "Rubik-Light": require("../assets/fonts/Rubik-Light.ttf"),
@@ -19,14 +23,18 @@ const RootLayout = () => {
 
   useEffect(() => {
     if (error) throw error;
-    if (fontsLoaded) SplashScreen.hideAsync();
-  }, [fontsLoaded, error]);
-  if (!fontsLoaded && !error) return null;
+    if (fontsLoaded && i18nReady) SplashScreen.hideAsync();
+  }, [fontsLoaded, i18nReady, error]);
+
+  if (!fontsLoaded || !i18nReady || error) return <SplashScreenView />;
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Stack screenOptions={{ headerShown: false }} />
+      <Host>
+        <Stack screenOptions={{ headerShown: false }} />
+      </Host>
     </QueryClientProvider>
   );
 };
+
 export default RootLayout;

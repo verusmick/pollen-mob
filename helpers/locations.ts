@@ -1,27 +1,14 @@
-import * as Location from 'expo-location';
+import { Location } from "@/infrastructure/interfaces/location.interface";
 
-// types.ts
-export interface Coordinates {
-  latitude: number;
-  longitude: number;
-}
-
-export interface LocationItem extends Coordinates {
-  name: string;
-}
-
-export const haversineDistance = (
-  coords1: Coordinates,
-  coords2: Coordinates
-): number => {
+export const haversineDistance = (loc1: Location, loc2: Location): number => {
   const toRad = (x: number) => (x * Math.PI) / 180;
 
   const R = 6371; // Radius of the Earth in km
-  const dLat = toRad(coords2.latitude - coords1.latitude);
-  const dLon = toRad(coords2.longitude - coords1.longitude);
+  const dLat = toRad(loc2.lat - loc1.lat);
+  const dLon = toRad(loc2.lon - loc1.lon);
 
-  const lat1 = toRad(coords1.latitude);
-  const lat2 = toRad(coords2.latitude);
+  const lat1 = toRad(loc1.lat);
+  const lat2 = toRad(loc2.lat);
 
   const a =
     Math.sin(dLat / 2) ** 2 +
@@ -33,20 +20,24 @@ export const haversineDistance = (
 };
 
 export const findNearestLocation = (
-  currentLocation: Coordinates,
-  locations: LocationItem[]
-): LocationItem | null => {
-  let nearest: LocationItem | null = null;
-  let minDistance = Infinity;
-
+  currentLocation: Location,
+  locations: Location[],
+  minDistance: number = 0, // ignore locations closer than this (in km)
+  maxDistance: number = Infinity // ignore locations farther than this (in km)
+): Location | null => {
+  let nearest: Location | null = null;
+  let minFoundDistance = Infinity;
   for (const location of locations) {
     const distance = haversineDistance(currentLocation, location);
-    if (distance < minDistance) {
-      minDistance = distance;
+    if (
+      distance >= minDistance &&
+      distance <= maxDistance &&
+      distance < minFoundDistance
+    ) {
+      minFoundDistance = distance;
       nearest = location;
     }
   }
 
   return nearest;
 };
-

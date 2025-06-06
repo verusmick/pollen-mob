@@ -72,7 +72,11 @@
   "components": {
     "locationSearchInput": {
       "inputLabel": "Search location",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "noResults": "No results for "
+    },
+    "locationCard": {
+      "isMylocation": "My Location"
     }
   }
 }

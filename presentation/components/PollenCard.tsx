@@ -7,13 +7,13 @@ import { Pollen } from "@/infrastructure/interfaces/pollen.interface";
 import { allergyRangeColors } from "@/constants/Colors";
 interface PollenCardProps {
   pollen: Pollen;
-  key: number;
+  pollenKey: number;
 }
-const PollenCard = ({ pollen, key }: PollenCardProps) => {
+const PollenCard = ({ pollen, pollenKey }: PollenCardProps) => {
   const { t } = useTranslation();
   return (
     <Card
-      key={key}
+      key={pollenKey}
       className="bg-neutral-800 mb-3 p-4 flex-row items-center pt-3"
     >
       <View className="flex-1">
@@ -32,7 +32,7 @@ const PollenCard = ({ pollen, key }: PollenCardProps) => {
         <View className="flex-row items-center justify-between">
           <GradientProgressBar
             progress={pollen.allergyLevel.percentage}
-            id={key}
+            id={pollenKey}
           />
           <Text className="text-white ml-4">{pollen.value.toFixed()}</Text>
         </View>

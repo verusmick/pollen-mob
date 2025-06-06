@@ -1,97 +1,96 @@
-import { Text, TouchableOpacity, FlatList, ScrollView } from "react-native";
+import { ActivityIndicator, FlatList, Text, View } from "react-native";
 import { useRouter } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
-import LocationCard from "@/presentation/components/LocationCard";
-import { useLocations } from "@/presentation/hooks/useLocations";
-import useLocationsSelectedStore from "@/store/useLocationsSelectedStore";
-import { useLinkPollenToLocation } from "@/presentation/hooks/useLinkPollenToLocation";
+import { useTranslation } from "react-i18next";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import LocationCard from "@/presentation/components/LocationCard";
+import LocationSearchInput from "@/presentation/components/LocationSearchInput";
+import SafeAreaViewWrapper from "@/presentation/components/SafeAreaViewWrapper";
+
+import { useLinkPollenToLocation } from "@/presentation/hooks/useLinkPollenToLocation";
+import { useLocations } from "@/presentation/hooks/useLocations";
 import useCurrentLocationSelectedStore from "@/store/useCurrentLocationSelectedStore";
+import useLocationsSelectedStore from "@/store/useLocationsSelectedStore";
 
 import {
-  Location,
-  LocationWithMeasurement,
+  type Location,
+  type LocationWithMeasurement,
 } from "@/infrastructure/interfaces/location.interface";
-import LocationSearchInput from "@/presentation/components/LocationSearchInput";
-import { useTranslation } from "react-i18next";
-import { useCallback, useEffect, useRef, useState } from "react";
+import useLoaderStore from "@/store/useLoaderStore";
+import Loading from "@/presentation/components/Loading";
 
 const LocationsScreen = () => {
   const { t } = useTranslation();
   const { locationsQuery } = useLocations();
-  const { data, isLoading } = locationsQuery;
-  const locationsData = data || [];
   const router = useRouter();
-  const { linkPollen, loading, error } = useLinkPollenToLocation();
+  const insets = useSafeAreaInsets();
+
   const { getLocationsSelectedArray, addLocation } =
     useLocationsSelectedStore();
   const { setCurrentLocation } = useCurrentLocationSelectedStore();
   const locationsSelected = getLocationsSelectedArray();
-  const prevLocationsDataRef = useRef<Location[]>([]);
-  const [enrichedLocations, setEnrichedLocations] = useState<
-    LocationWithMeasurement[]
-  >([]);
+  const { linkPollen } = useLinkPollenToLocation();
+  const { isLoading, setIsLoading } = useLoaderStore();
+
+  const { data } = locationsQuery;
+  const locationsData = data || [];
+
   const addNewSelectedLocation = async (location: Location) => {
+    setIsLoading(true);
     const locationWithPollen = await linkPollen(location);
-    // addLocation(locationWithPollen as LocationWithMeasurement);
+    const locationWithTimestamp: LocationWithMeasurement = {
+      ...locationWithPollen,
+      ts: Date.now(),
+    };
+    addLocation(locationWithTimestamp);
+    setIsLoading(false);
   };
 
-  const functionTETE = useCallback(
-    async (locations: Location[]) => {
-      const enriched = await Promise.all(
-        locations.map(async (location) => {
-          const locationWithPollen = await linkPollen(location);
-          return locationWithPollen as LocationWithMeasurement;
-        })
-      );
-      setEnrichedLocations(enriched);
-      console.log("tete", enriched);
-    },
-    [linkPollen]
-  );
-
-  useEffect(() => {
-    // Only call if locationsData is not empty and has changed
-    if (
-      locationsData.length > 0 &&
-      JSON.stringify(prevLocationsDataRef.current) !==
-        JSON.stringify(locationsData)
-    ) {
-      prevLocationsDataRef.current = locationsData;
-      functionTETE(locationsData);
-    }
-  }, [locationsData, functionTETE]);
+  const getLocationsSelected = (
+    dataLocations: LocationWithMeasurement[]
+  ): LocationWithMeasurement[] => {
+    return dataLocations.sort((a, b) => b.ts - a.ts);
+  };
 
   return (
-    <ScrollView className="bg-neutral-900 flex-1 p-6">
-      <Text className="text-white text-xl font-bold">
-        {t("location_screen.title")}
-      </Text>
-      {/* <LocationSearchInput
-        locations={locationsData}
-        onSelectLocation={addNewSelectedLocation}
-      /> */}
-      <FlatList
-        data={enrichedLocations}
-        keyExtractor={(index) => index.id}
-        renderItem={({ item, index }) => {
-          const hasPollenData = item.pollenMeasurement?.pollens?.length > 0;
-          return (
-            <LocationCard
-              isMyLocation={false}
-              location={item}
-              index={index}
-              onPress={(id) => {
-                if (hasPollenData) {
-                  setCurrentLocation(item);
-                  router.push("/home");
-                }
-              }}
-            />
-          );
-        }}
-      />
-    </ScrollView>
+    <SafeAreaViewWrapper className="bg-neutral-900">
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <View className="flex-1 px-4" style={{ zIndex: 1 }}>
+          <Text className="text-white text-2xl font-bold mt-2">
+            {t("location_screen.title")}
+          </Text>
+          <LocationSearchInput
+            locations={locationsData}
+            onSelectLocation={addNewSelectedLocation}
+          />
+
+          <FlatList
+            data={getLocationsSelected(locationsSelected)}
+            keyExtractor={(item) => item.id}
+            contentContainerStyle={{
+              paddingBottom: insets.bottom,
+            }}
+            renderItem={({ item, index }) => {
+              const hasPollenData = item.pollenMeasurement?.pollens?.length > 0;
+              return (
+                <LocationCard
+                  location={item}
+                  index={index}
+                  onPress={() => {
+                    if (hasPollenData) {
+                      setCurrentLocation(item);
+                      router.push("/home");
+                    }
+                  }}
+                />
+              );
+            }}
+          />
+        </View>
+      )}
+    </SafeAreaViewWrapper>
   );
 };
 

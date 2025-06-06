@@ -10,7 +10,15 @@ const HeaderUbication = ({ subTitle }: HeaderLocation) => {
     <View className="flex-row items-center mt-3">
       <MapPin size={16} color="white" />
       <Pressable onPress={() => router.push("/(tabs)/locations")}>
-        <Text className="text-white text-sm ml-2">{subTitle}</Text>
+        {({ pressed }) => (
+          <Text
+            className={`${
+              pressed ? "text-slate-300" : "text-white"
+            } text-sm ml-2`}
+          >
+            {subTitle}
+          </Text>
+        )}
       </Pressable>
     </View>
   );

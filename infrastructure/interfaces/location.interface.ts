@@ -9,6 +9,8 @@ export interface Location {
 
 export interface LocationWithMeasurement extends Location {
   pollenMeasurement: PollenMeasurement;
+  isMycurrentLocation: boolean;
+  ts: number;
 }
 
 interface PollenMeasurement {
