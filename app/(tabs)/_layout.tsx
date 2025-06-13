@@ -67,11 +67,11 @@ export default function Layout() {
   useEffect(() => {
     if (locationsData.length > 0 && currentUserLocation) {
       // todo: Testing coords
-      // const testLocation = currentUserLocation;
-      const testLocation = {
-        lat: 54.58337,
-        lon: 9.28983,
-      };
+      const testLocation = currentUserLocation;
+      // const testLocation = {
+      //   lat: 54.58337,
+      //   lon: 9.28983,
+      // };
       const nearestLocation = findNearestLocation(
         testLocation,
         locationsData,
