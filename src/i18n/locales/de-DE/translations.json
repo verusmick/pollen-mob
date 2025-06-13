@@ -1,6 +1,90 @@
 {
   "home_screen": {
-    "welcome": "Willkommen!"
+    "tab_name": "Startseite",
+    "welcome": "Willkommen!",
+    "description_concentration": "Höchste Konzentrationen des letzten Tages"
   },
-  "explore_screen": {}
+  "location_screen": {
+    "title": "Standorte"
+  },
+  "config_screen": {
+    "title": "Konfiguration",
+    "languages": "Sprachen"
+  },
+
+  "components": {
+    "description_pollenCard": {
+      "label_pollen": "pollen/m³"
+    },
+    "search_select_input": {
+      "input_label_location": "Ort suchen",
+      "cancel": "Abbrechen",
+      "no_results": "Keine Ergebnisse für "
+    },
+    "locationCard": {
+      "is_my_location": "Mein Standort"
+    },
+    "alergyLabelIndicator": {
+      "NONE": "Kein Risiko",
+      "VERY_LOW": "Sehr geringes Allergierisiko",
+      "LOW": "Geringes Allergierisiko",
+      "MODERATE": "Mäßiges Allergierisiko",
+      "HIGH": "Hohes Allergierisiko",
+      "VERY_HIGH": "Sehr hohes Allergierisiko"
+    }
+  },
+  "pollenName": {
+    "Acer": "Esdoorn",
+    "Cruciferae": "Kruisbloemenfamilie",
+    "Heracleum": "Berenklauw",
+    "Parietaria": "Glaskruid",
+    "Pinaceae": "Dennenfamilie",
+    "Triticum": "Tarwe",
+    "Zea mays": "Mais",
+    "Abies": "Zilverspar",
+    "Aesculus": "Kastanje",
+    "Alnus": "Els",
+    "Alternaria": "Alternaria",
+    "Ambrosia": "Ambrosia",
+    "Artemisia": "Bijvoet",
+    "Asteraceae": "Composietenfamilie",
+    "Betula": "Berk",
+    "Brassica": "Koolzaad",
+    "Carpinus": "Haagbeuk",
+    "Castanea": "Wilde kastanje",
+    "Chenopodium": "Ganzenvoet",
+    "Corylus": "Hazelaar",
+    "Cyperaceae": "Cypergrassenfamilie",
+    "Erica": "Heide",
+    "Fagus": "Beuk",
+    "Fraxinus": "Es",
+    "Fungus": "Schimmel",
+    "Galium": "Lievevrouwebedstro",
+    "Glomerorum": "Schimmelsporen",
+    "Humulus": "Hop",
+    "Impatiens": "Springzaad",
+    "Juglans": "Walnoot",
+    "Juniperus": "Jeneverbes",
+    "Larix": "Lariks",
+    "Mercurialis": "Bingelkruid",
+    "Picea": "Spar",
+    "Pinus": "Den",
+    "Plantago": "Weegbree",
+    "Platanus": "Plataan",
+    "Poaceae": "Gras",
+    "Populus": "Populier",
+    "Quercus": "Eik",
+    "Quercus ilex": "Steeneik",
+    "Rumex": "Zuring",
+    "Salix": "Wilg",
+    "Sambucus": "Vlier",
+    "Secale": "Rogge",
+    "Solidago": "Guldenroede",
+    "Taraxacum": "Paardenbloem",
+    "Taxus": "Taxus",
+    "Tilia": "Linde",
+    "Ulmus": "Iep",
+    "Urtica": "Brandnetel",
+    "Varia": "Varia"
+  }
 }

@@ -41,7 +41,7 @@ const CircularProgress = (props: any) => {
           {...{ strokeWidth }}
         />
         <Image
-          href={require("../../assets/images/pollen.png")}
+          href={require("../../../assets/images/pollen.png")}
           x={size / 2 - 50}
           y={size / 2 - 70}
           width="100"

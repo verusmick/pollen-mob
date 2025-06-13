@@ -1,8 +1,10 @@
-import Card from "./Card";
+import Card from "../common/Card";
+import { AllergyIndicatorLabel } from "../indicators/AllergyIndicatorLabel";
 import { View, Text, Pressable } from "react-native";
-import { AllergyIndicatorLabel } from "./AllergyIndicatorLabel";
 import { LocationWithMeasurement } from "@/infrastructure/interfaces/location.interface";
 import { useTranslation } from "react-i18next";
+
+
 interface LocationCardProps {
   location: LocationWithMeasurement;
   onPress?: (id: string) => void;
@@ -18,7 +20,7 @@ const LocationCard = ({ location, onPress, index }: LocationCardProps) => {
       {({ pressed }) => (
         <Card
           key={index}
-          className={`mb-4 p-6 rounded-2xl flex-row justify-between items-center ${
+          className={`p-6 flex-row justify-between items-center rounded-lg shadow-md overflow-hidden ${
             pressed ? "bg-neutral-700/70" : "bg-neutral-800"
           }`}
         >
@@ -29,7 +31,7 @@ const LocationCard = ({ location, onPress, index }: LocationCardProps) => {
             </Text>
             {isMyLocation && (
               <Text className="text-gray-300 text-sm">
-                {t(`${i18nKey}.isMylocation`)}
+                {t(`${i18nKey}.is_my_location`)}
               </Text>
             )}
             <AllergyIndicatorLabel

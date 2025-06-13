@@ -2,17 +2,14 @@
   "home_screen": {
     "tab_name": "Home",
     "welcome": "Welcome!",
-    "allergyRanges": {
-      "NONE": "None",
-      "VERY_LOW": "Very low",
-      "LOW": "Low",
-      "MODERATE": "Moderate",
-      "HIGH": "High",
-      "VERY_HIGH": "Very high"
-    }
+    "description_concentration": "Top concentrations of the last day "
   },
   "location_screen": {
     "title": "Locations"
+  },
+  "config_screen": {
+    "title": "Configuration",
+    "languages": "Languages"
   },
   "explore_screen": {},
   "pollenName": {
@@ -70,13 +67,25 @@
     "Varia": "Varia"
   },
   "components": {
-    "locationSearchInput": {
-      "inputLabel": "Search location",
+    "description_pollenCard": {
+      "label_pollen": "pollen/m³"
+    },
+    "search_select_input": {
+      "input_label_location": "Search location",
+    
       "cancel": "Cancel",
-      "noResults": "No results for "
+      "no_results": "No results for "
     },
     "locationCard": {
-      "isMylocation": "My Location"
+      "is_my_location": "My Location"
+    },
+    "alergyLabelIndicator": {
+      "NONE": "No Risk",
+      "VERY_LOW": "Very low allergy risk",
+      "LOW": "Low allergy risk",
+      "MODERATE": "Moderate allergy risk",
+      "HIGH": "High allergy risk",
+      "VERY_HIGH": "Very high allergy risk"
     }
   }
 }

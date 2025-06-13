@@ -1,7 +1,32 @@
 {
   "home_screen": {
-    "tab_name": "الرئيسية",
-    "welcome": "مرحبًا!"
+    "tab_name": "الصفحة الرئيسية",
+    "welcome": "مرحبًا!",
+    "description_concentration": "أعلى تركيزات في اليوم الماضي (حبوب اللقاح/م³)",
+    "allergyRanges": {
+      "NONE": "لا يوجد",
+      "VERY_LOW": "منخفض جدًا",
+      "LOW": "منخفض",
+      "MODERATE": "متوسط",
+      "HIGH": "مرتفع",
+      "VERY_HIGH": "مرتفع جدًا"
+    }
   },
-  "explore_screen": {  }
+  "explore_screen": {},
+  "location_screen": {
+    "title": "المواقع"
+  },
+  "config_screen": {
+    "title": "الإعدادات"
+  },
+  "components": {
+    "locationSearchInput": {
+      "input_label_location": "البحث عن الموقع",
+      "cancel": "إلغاء",
+      "no_results": "لا توجد نتائج لـ "
+    },
+    "locationCard": {
+      "is_my_location": "موقعي"
+    }
+  }
 }

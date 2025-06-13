@@ -14,12 +14,24 @@ const useLocationsSelectedStore = create<LocationsSelectedState>(
   (set, get) => ({
     selectedLocations: {},
     addLocation: (location) =>
-      set((state) => ({
-        selectedLocations: {
-          ...state.selectedLocations,
-          [location.id]: location,
-        },
-      })),
+      set((state) => {
+        const existing = state.selectedLocations[location.id];
+        const isMycurrentLocation =
+          location.isMycurrentLocation ||
+          existing?.isMycurrentLocation ||
+          false;
+
+        return {
+          selectedLocations: {
+            ...state.selectedLocations,
+            [location.id]: {
+              ...location,
+              isMycurrentLocation,
+            },
+          },
+        };
+      }),
+
     addLocations: (locations) =>
       set((state) => {
         const newLocations = { ...state.selectedLocations };

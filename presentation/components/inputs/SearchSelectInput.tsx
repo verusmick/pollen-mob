@@ -16,19 +16,22 @@ import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect } from "expo-router";
 import { useTranslation } from "react-i18next";
 
-import { type Location } from "@/infrastructure/interfaces/location.interface";
-
-const i18nKey = "components.locationSearchInput";
-
-interface LocationSearchProps {
-  locations: Location[];
-  onSelectLocation: (location: Location) => void;
+const i18nKey = "components.search_select_input";
+interface SearchSelectInputProps<T> {
+  data?: T[];
+  labelKey: keyof T;
+  selectedItems?: T[];
+  onSelectItem: (item: T) => void;
+  placeholder?: string;
 }
 
-const LocationSearchInput = ({
-  locations,
-  onSelectLocation,
-}: LocationSearchProps) => {
+const SearchSelectInput = <T extends object>({
+  data = [],
+  labelKey,
+  selectedItems = [],
+  onSelectItem,
+  placeholder,
+}: SearchSelectInputProps<T>) => {
   const { t } = useTranslation();
   const [searchText, setSearchText] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -66,19 +69,23 @@ const LocationSearchInput = ({
     };
   }, []);
 
-  const filteredLocations = locations.filter((loc) =>
-    loc.name.toLowerCase().includes(searchText.toLowerCase())
+  const filteredData = (data ?? []).filter((item) =>
+    String(item[labelKey]).toLowerCase().includes(searchText.toLowerCase())
   );
 
   const screenHeight = Dimensions.get("window").height;
   const remainingHeight = inputLayout
     ? screenHeight - (inputLayout.y + inputLayout.height + keyboardHeight)
     : 250;
-  const getTextHightlite = (text: string, searchText: string) => {
+  const getTextHightlite = (
+    text: string,
+    searchText: string,
+    isSelected: boolean = false
+  ) => {
     const index = text.toLowerCase().indexOf(searchText.toLowerCase());
-
+    const baseColor = isSelected ? "text-white/80" : "text-neutral-500";
     if (index === -1 || searchText === "") {
-      return <Text className="text-neutral-500 text-lg">{text}</Text>;
+      return <Text className={`text-lg ${baseColor}`}>{text}</Text>;
     }
 
     const before = text.slice(0, index);
@@ -87,9 +94,9 @@ const LocationSearchInput = ({
 
     return (
       <Text className="text-lg">
-        <Text className="text-neutral-500">{before}</Text>
+        <Text className={baseColor}>{before}</Text>
         <Text className="text-white">{match}</Text>
-        <Text className="text-neutral-500">{after}</Text>
+        <Text className={baseColor}>{after}</Text>
       </Text>
     );
   };
@@ -102,6 +109,7 @@ const LocationSearchInput = ({
       };
     }, [])
   );
+
   return (
     <>
       <View
@@ -126,7 +134,7 @@ const LocationSearchInput = ({
             <TextInput
               ref={textInputRef}
               autoCorrect={false}
-              placeholder={t(`${i18nKey}.inputLabel`)}
+              placeholder={placeholder}
               placeholderTextColor="#aaa"
               value={searchText}
               onFocus={() => {
@@ -149,6 +157,7 @@ const LocationSearchInput = ({
                 textInputRef.current?.blur();
               }}
               className="px-6 py-2"
+              hitSlop={20}
             >
               <Text className="text-white">{t(`${i18nKey}.cancel`)}</Text>
             </TouchableOpacity>
@@ -157,67 +166,78 @@ const LocationSearchInput = ({
       </View>
 
       {/* Suggestion Dropdown and Backdrop */}
-      <Portal>
-        {showSuggestions && inputLayout && (
-          <>
-            {/* Backdrop to close dropdown on outside press */}
-            <TouchableOpacity
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: Dimensions.get("window").width,
-                height: Dimensions.get("window").height,
-                backgroundColor: "transparent",
-                zIndex: 9998,
-              }}
-              activeOpacity={1}
-              onPress={() => {
-                setShowSuggestions(false);
-                Keyboard.dismiss();
-              }}
-            />
 
-            {/* Suggestions List */}
-            <View
-              style={[
-                styles.dropdown,
-                {
-                  top: inputLayout.y + inputLayout.height + 5,
-                  left: inputLayout.x,
-                  width: inputLayout.width,
-                  height: remainingHeight,
-                },
-              ]}
-            >
-              <ScrollView keyboardShouldPersistTaps="handled">
-                {filteredLocations.length > 0 ? (
-                  filteredLocations.map((item) => (
+      {showSuggestions && inputLayout && (
+        <Portal>
+          {/* Backdrop to close dropdown on outside press */}
+          <TouchableOpacity
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: Dimensions.get("window").width,
+              height: Dimensions.get("window").height,
+              backgroundColor: "transparent",
+              zIndex: 9998,
+            }}
+            activeOpacity={1}
+            onPress={() => {
+              setSearchText("");
+              setShowSuggestions(false);
+              Keyboard.dismiss();
+            }}
+          />
+          {/* Suggestions List */}
+          <View
+            style={[
+              styles.dropdown,
+              {
+                top: inputLayout.y + inputLayout.height + 5,
+                left: inputLayout.x,
+                width: inputLayout.width,
+                height: remainingHeight,
+              },
+            ]}
+          >
+            <ScrollView keyboardShouldPersistTaps="handled">
+              {filteredData.length > 0 ? (
+                filteredData.map((item) => {
+                  const label = String(item[labelKey]);
+                  const isSelected = selectedItems?.some(
+                    (sel) => sel[labelKey] === item[labelKey]
+                  );
+                  return (
                     <TouchableOpacity
                       key={item.id}
                       onPress={() => {
-                        Keyboard.dismiss();
+                        onSelectItem(item);
                         setSearchText("");
                         setShowSuggestions(false);
-                        onSelectLocation(item);
                       }}
-                      className="p-3"
+                      className="p-3 flex-row justify-between items-center"
                     >
-                      {getTextHightlite(item.name, searchText)}
+                      {getTextHightlite(label, searchText, isSelected)}
+                      {isSelected && (
+                        <Ionicons
+                          name="checkmark"
+                          size={14}
+                          color="#ffffffcc"
+                        />
+                      )}
                     </TouchableOpacity>
-                  ))
-                ) : (
-                  <View style={{ maxHeight: remainingHeight, padding: 12 }}>
-                    <Text className="text-neutral-500 text-xl">
-                      {t(`${i18nKey}.noResults`)} "{searchText}"
-                    </Text>
-                  </View>
-                )}
-              </ScrollView>
-            </View>
-          </>
-        )}
-      </Portal>
+                  );
+                })
+              ) : (
+                <View style={{ maxHeight: remainingHeight, padding: 12 }}>
+                  <Text className="text-neutral-500 text-xl">
+                    {t(`${i18nKey}.no_results`)} "{searchText}"
+                  </Text>
+                </View>
+              )}
+            </ScrollView>
+          </View>
+        </Portal>
+      )}
     </>
   );
 };
@@ -237,4 +257,4 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
 });
-export default LocationSearchInput;
+export default SearchSelectInput;

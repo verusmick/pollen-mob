@@ -1,6 +1,11 @@
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 # idea editor
 .idea
+<<<<<<< Updated upstream
+=======
+#vscode editor
+>>>>>>> Stashed changes
+.vscode
 # dependencies
 node_modules/
 

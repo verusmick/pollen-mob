@@ -5,9 +5,7 @@ interface CardProps {
   className?: string;
 }
 const Card = ({ children, className = "" }: CardProps) => {
-  return (
-    <View className={`rounded-2xl shadow-md p-4 ${className}`}>{children}</View>
-  );
+  return <View className={className}>{children}</View>;
 };
 
 export default Card;

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { router, Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import * as expoLocation from "expo-location";
 
+import SplashScreenView from "@/presentation/components/layout/SplashScreenView";
 import { useLocations } from "@/presentation/hooks/useLocations";
 import { findNearestLocation } from "@/helpers/locations";
 import { useLinkPollenToLocation } from "@/presentation/hooks/useLinkPollenToLocation";
@@ -15,12 +17,10 @@ import {
   type LocationWithMeasurement,
 } from "@/infrastructure/interfaces/location.interface";
 
-import Loading from "@/presentation/components/Loading";
-import SplashScreenView from "@/presentation/components/SplashScreenView";
-
 const MAX_READER_USER_DISTANCE_KM = 370;
 
 export default function Layout() {
+  const { t } = useTranslation();
   const { locationsQuery } = useLocations();
   const [currentUserLocation, setCurrentUserLocation] =
     useState<expoLocation.LocationObject | null>(null);
@@ -35,18 +35,25 @@ export default function Layout() {
 
   const getCurrentUserLocation = async () => {
     let { status } = await expoLocation.requestForegroundPermissionsAsync();
-    if (status !== "granted") defaultRedirect();
+    if (status !== "granted") {
+      setIsAppReady(true);
+      defaultRedirect();
+      return;
+    }
     let { coords } = await expoLocation.getCurrentPositionAsync({});
     setCurrentUserLocation({
       lat: coords.latitude,
       lon: coords.longitude,
     });
   };
-
   const addNewSelectedLocation = async (location: Location) => {
     const locationWithPollen = await linkPollen(location);
+    const currentStoredLocation =
+      useLocationsSelectedStore.getState().selectedLocations[location.id];
+
     const enrichedLocation = {
       ...locationWithPollen,
+      ...currentStoredLocation,
       isMycurrentLocation: true,
       ts: new Date("2100-01-01").getTime(),
     };
@@ -54,16 +61,17 @@ export default function Layout() {
     setCurrentLocation(enrichedLocation as LocationWithMeasurement);
     router.push("/home");
   };
+
   const defaultRedirect = () => router.navigate("/(tabs)/locations");
 
   useEffect(() => {
     if (locationsData.length > 0 && currentUserLocation) {
       // todo: Testing coords
-      const testLocation = currentUserLocation;
-      // const testLocation = {
-      //   lat: 54.58337,
-      //   lon: 9.28983,
-      // };
+      // const testLocation = currentUserLocation;
+      const testLocation = {
+        lat: 54.58337,
+        lon: 9.28983,
+      };
       const nearestLocation = findNearestLocation(
         testLocation,
         locationsData,
@@ -93,11 +101,11 @@ export default function Layout() {
         tabBarStyle: { backgroundColor: "#0f0f0f", borderTopWidth: 0 },
       }}
     >
-      <Tabs.Screen name="home" options={{ href: null }} />
+      <Tabs.Screen name="home/index" options={{ href: null }} />
       <Tabs.Screen
-        name="locations"
+        name="locations/index"
         options={{
-          title: "Locations",
+          title: t("location_screen.title"),
           tabBarIcon: ({ color, size, focused }) => (
             <Ionicons
               name={focused ? "map" : "map-outline"}
@@ -109,8 +117,23 @@ export default function Layout() {
         }}
       />
       <Tabs.Screen
-        name="allergies"
+        name="configuration/index"
         options={{
+          title: t("config_screen.title"),
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons
+              name={focused ? "cog" : "cog-outline"}
+              size={size}
+              color={color}
+            />
+          ),
+          tabBarStyle: { display: "none" },
+        }}
+      />
+      <Tabs.Screen
+        name="allergies/index"
+        options={{
+          href: null,
           title: "My allergies",
           tabBarIcon: ({ color, size, focused }) => (
             <Ionicons

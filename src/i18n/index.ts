@@ -7,7 +7,8 @@ import translationEn from "./locales/en-US/translations.json";
 import translationKo from "./locales/ko-KR/translations.json";
 import translationAr from "./locales/ar-SA/translations.json";
 import translationDe from "./locales/de-DE/translations.json";
-
+import translationFr from "./locales/fr-FR/translations.json";
+import translationEs from "./locales/es-ES/translations.json";
 const resources = {
   "en-US": { translation: translationEn },
   en: { translation: translationEn },
@@ -17,6 +18,10 @@ const resources = {
   ar: { translation: translationAr },
   "de-DE": { translation: translationDe },
   de: { translation: translationDe },
+  "fr-FR": { translation: translationFr },
+  fr: { translation: translationFr },
+  "es-ES": { translation: translationEs },
+  es: { translation: translationEs },
 };
 
 const RTL_LANGUAGES = ["ar", "ar-SA"];

@@ -9,8 +9,10 @@ interface HeaderProps {
 
 const Header = ({ title, subTitle, className = "" }: HeaderProps) => {
   return (
-    <View className={`p-4 ${className}`}>
-      <Text className="text-white text-2xl font-bold text-center">{title}</Text>
+    <View className={`p-4  ${className}`}>
+      <Text className="text-white text-2xl font-bold text-center ">
+        {title}
+      </Text>
       <HeaderUbication subTitle={subTitle} />
     </View>
   );

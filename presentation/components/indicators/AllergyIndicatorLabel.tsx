@@ -17,7 +17,7 @@ export const AllergyIndicatorLabel = ({ level }: AllergyIndicatorProps) => {
           color: allergyRangeColors[level || "NONE"],
         }}
       >
-        {t(`home_screen.allergyRanges.${level}`)} allergy risk
+        {t(`components.alergyLabelIndicator.${level}`)}
       </Text>
     </View>
   );

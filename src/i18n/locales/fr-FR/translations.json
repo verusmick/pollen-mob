@@ -1,0 +1,89 @@
+{
+  "home_screen": {
+    "tab_name": "Accueil",
+    "welcome": "Bienvenue !",
+    "description_concentration": "Concentrations maximales de la dernière journée"
+  },
+  "location_screen": {
+    "title": "Emplacements"
+  },
+  "config_screen": {
+    "title": "Configuration",
+    "languages": "Langues"
+  },
+  "components": {
+    "description_pollenCard": {
+      "label_pollen": "pollen/m³"
+    },
+    "search_select_input": {
+      "input_label_location": "Rechercher un lieu",
+      "cancel": "Annuler",
+      "no_results": "Aucun résultat pour "
+    },
+    "locationCard": {
+      "is_my_location": "Ma position"
+    },
+    "alergyLabelIndicator": {
+      "NONE": "Aucun risque",
+      "VERY_LOW": "Risque d'allergie très faible",
+      "LOW": "Risque d'allergie faible",
+      "MODERATE": "Risque d'allergie modéré",
+      "HIGH": "Risque d'allergie élevé",
+      "VERY_HIGH": "Risque d'allergie très élevé"
+    }
+  },
+  "pollenName": {
+    "Acer": "Erable",
+    "Cruciferae": "Brassicacées",
+    "Heracleum": "Berce",
+    "Parietaria": "Pariétaire",
+    "Pinaceae": "Pinacées",
+    "Triticum": "Blé",
+    "Zea mays": "Maïs",
+    "Abies": "Sapin",
+    "Aesculus": "Marronnier",
+    "Alnus": "Aulne",
+    "Alternaria": "Alternaria",
+    "Ambrosia": "Ambroisie",
+    "Artemisia": "Armoise",
+    "Asteraceae": "Astéracées",
+    "Betula": "Bouleau",
+    "Brassica": "Colza",
+    "Carpinus": "Charme",
+    "Castanea": "Châtaignier",
+    "Chenopodium": "Chenopode",
+    "Corylus": "Noisetier",
+    "Cyperaceae": "Cypéracée",
+    "Erica": "Bruyère",
+    "Fagus": "Hêtre",
+    "Fraxinus": "Frêne",
+    "Fungus": "Champignons",
+    "Galium": "Rubiacée",
+    "Glomerorum": "Moisissures",
+    "Humulus": "Houblon",
+    "Impatiens": "Impatiens",
+    "Juglans": "Noyer",
+    "Juniperus": "Genévrier",
+    "Larix": "Mélèze",
+    "Mercurialis": "Mercuriales",
+    "Picea": "Epicea",
+    "Pinus": "Pin",
+    "Plantago": "Plantain",
+    "Platanus": "Platane",
+    "Poaceae": "Graminées",
+    "Populus": "Peuplier",
+    "Quercus": "Chêne",
+    "Quercus ilex": "Chêne vert",
+    "Rumex": "Oseille",
+    "Salix": "Saule",
+    "Sambucus": "Sureau",
+    "Secale": "Sécale",
+    "Solidago": "Verge d'or",
+    "Taraxacum": "Pissenlit",
+    "Taxus": "If",
+    "Tilia": "Tilleul",
+    "Ulmus": "Orme",
+    "Urtica": "Ortie",
+    "Varia": "Varia"
+  }
+}

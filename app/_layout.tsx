@@ -1,12 +1,16 @@
 import { useEffect } from "react";
-import { SplashScreen, Stack } from "expo-router";
-import "./global.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useFonts } from "expo-font";
-import "@/src/i18n";
 import { Host } from "react-native-portalize";
 import { useTranslation } from "react-i18next";
-import SplashScreenView from "@/presentation/components/SplashScreenView";
+import { Slot, SplashScreen } from "expo-router";
+import * as Localization from "expo-localization";
+import { useFonts } from "expo-font";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "./global.css";
+import "@/src/i18n";
+import type { i18n as I18nType } from "i18next";
+
+import SplashScreenView from "@/presentation/components/layout/SplashScreenView";
+
 // Create a client
 const queryClient = new QueryClient();
 SplashScreen.preventAutoHideAsync();
@@ -26,12 +30,32 @@ const RootLayout = () => {
     if (fontsLoaded && i18nReady) SplashScreen.hideAsync();
   }, [fontsLoaded, i18nReady, error]);
 
-  if (!fontsLoaded || !i18nReady || error) return <SplashScreenView />;
+  const setInitialLanguage = async (i18nInstance: I18nType) => {
+    if (!i18nInstance.isInitialized) return;
+
+    const systemLang = Localization.locale || "en-US";
+    const langBase = systemLang.split("-")[0].toLowerCase();
+
+    const supportedLangs = ["en", "fr", "de", "es"];
+    const fallbackLang = "en";
+
+    const matchedLang = supportedLangs.includes(langBase)
+      ? langBase
+      : fallbackLang;
+
+    if (i18nInstance.language !== matchedLang) {
+      await i18nInstance.changeLanguage(matchedLang);
+    }
+  };
+
+  useEffect(() => {
+    setInitialLanguage(i18n);
+  }, [i18n]);
 
   return (
     <QueryClientProvider client={queryClient}>
       <Host>
-        <Stack screenOptions={{ headerShown: false }} />
+        {!fontsLoaded || !i18nReady || error ? <SplashScreenView /> : <Slot />}
       </Host>
     </QueryClientProvider>
   );

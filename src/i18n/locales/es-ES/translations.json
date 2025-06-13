@@ -1,0 +1,89 @@
+{
+  "home_screen": {
+    "tab_name": "Inicio",
+    "welcome": "¡Bienvenido!",
+    "description_concentration": "Concentraciones máximas del último día"
+  },
+  "location_screen": {
+    "title": "Ubicaciones"
+  },
+  "config_screen": {
+    "title": "Configuración",
+    "languages": "Idiomas"
+  },
+  "components": {
+    "description_pollenCard": {
+      "label_pollen": "polen/m³"
+    },
+    "search_select_input": {
+      "input_label_location": "Buscar ubicación",
+      "cancel": "Cancelar",
+      "no_results": "No hay resultados para "
+    },
+    "locationCard": {
+      "is_my_location": "Mi ubicación"
+    },
+    "alergyLabelIndicator": {
+      "NONE": "Ningun Riesgo",
+      "VERY_LOW": "Riesgo muy bajo de alergia",
+      "LOW": "Riesgo bajo de alergia",
+      "MODERATE": "Riesgo moderado de alergia",
+      "HIGH": "Riesgo alto de alergia",
+      "VERY_HIGH": "Riesgo muy alto de alergia"
+    }
+  },
+  "pollenName": {
+    "Acer": "Arce",
+    "Cruciferae": "Crucíferas",
+    "Heracleum": "Apiáceas",
+    "Parietaria": "Parietaria",
+    "Pinaceae": "Pináceas",
+    "Triticum": "Trigo",
+    "Zea mays": "Maíz",
+    "Abies": "Abeto",
+    "Aesculus": "Aesculus",
+    "Alnus": "Aliso",
+    "Alternaria": "Alternaria",
+    "Ambrosia": "Ambrosia",
+    "Artemisia": "Artemisia",
+    "Asteraceae": "Compuestas",
+    "Betula": "Abedul",
+    "Brassica": "Brassica",
+    "Carpinus": "Carpino",
+    "Castanea": "Castaño",
+    "Chenopodium": "Chenopodium",
+    "Corylus": "Avellano",
+    "Cyperaceae": "Cyperaceae",
+    "Erica": "Erica",
+    "Fagus": "Fagus",
+    "Fraxinus": "Fresno",
+    "Fungus": "Hongos",
+    "Galium": "Galium",
+    "Glomerorum": "Esporas de hongo",
+    "Humulus": "Humulus",
+    "Impatiens": "Impatiens",
+    "Juglans": "Nogal",
+    "Juniperus": "Enebro",
+    "Larix": "Larix",
+    "Mercurialis": "Mercurialis",
+    "Picea": "Picea",
+    "Pinus": "Pino",
+    "Plantago": "Plantago",
+    "Platanus": "Plátano",
+    "Poaceae": "Gramíneas",
+    "Populus": "Álamo",
+    "Quercus": "Quercus",
+    "Quercus ilex": "Quercus ilex",
+    "Rumex": "Rumex",
+    "Salix": "Sauce",
+    "Sambucus": "Sambucus",
+    "Secale": "Secale",
+    "Solidago": "Solidago",
+    "Taraxacum": "Taraxacum",
+    "Taxus": "Tejo",
+    "Tilia": "Tilo",
+    "Ulmus": "Olmo",
+    "Urtica": "Ortiga",
+    "Varia": "Indeterminado"
+  }
+}

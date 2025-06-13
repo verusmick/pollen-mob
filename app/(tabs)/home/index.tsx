@@ -1,24 +1,23 @@
-import CircularProgress from "@/presentation/components/CircularProgress";
-import { View, Text, FlatList } from "react-native";
+import CircularProgress from "@/presentation/components/indicators/CircularProgress";
+import { View, Text, FlatList, Platform } from "react-native";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
-import { SplashScreen } from "expo-router";
-import Header from "@/presentation/components/HeaderScreen";
-import AlertCard from "@/presentation/components/AlertCard";
+import { Redirect, SplashScreen } from "expo-router";
 import { allergyRangeColors } from "@/constants/Colors";
-import PollenCard from "@/presentation/components/PollenCard";
+import SafeAreaViewWrapper from "@/presentation/components/layout/SafeAreaViewWrapper";
+import AlertCard from "@/presentation/components/cards/AlertCard";
+import PollenCard from "@/presentation/components/cards/PollenCard";
+import Header from "@/presentation/components/layout/HeaderScreen";
 import useCurrentLocationSelectedStore from "@/store/useCurrentLocationSelectedStore";
-import SafeAreaViewWrapper from "@/presentation/components/SafeAreaViewWrapper";
-import { useRouter } from "expo-router";
+
 
 SplashScreen.preventAutoHideAsync();
 
 export default function HomeScreen() {
-  const router = useRouter();
   const [refreshing, setRefreshing] = useState(false);
   const { currentLocation } = useCurrentLocationSelectedStore();
 
-  if (!currentLocation) return false;
+  if (!currentLocation) return <Redirect href="/" />;
   const { pollenMeasurement: data, name: locationName } = currentLocation;
 
   const firstPollenEntry = data?.pollens[0];
@@ -47,8 +46,11 @@ export default function HomeScreen() {
     <SafeAreaViewWrapper className="bg-neutral-900" customPaddingBottom={0}>
       <FlatList
         className="p-4"
-        data={pollenList}
+        data={pollenList.length > 0 ? pollenList : []}
         keyExtractor={(item) => item.name}
+        contentContainerStyle={{
+          paddingBottom: Platform.OS === "android" ? 20 : 0,
+        }}
         ListHeaderComponent={
           <>
             <Header title="PollenScience.eu" subTitle={locationName} />
@@ -67,14 +69,18 @@ export default function HomeScreen() {
               />
             </View>
             <AlertCard pollen={firstPollenEntry} />
-            <Text className="text-white text-lg mb-4">
-              Top concentrations of the last day (pollen/m³)
-            </Text>
+            {pollenList.length > 0 && (
+              <Text className="text-white text-lg mb-4">
+                {t("home_screen.description_concentration")}
+              </Text>
+            )}
           </>
         }
-        renderItem={({ item, index }) => (
-          <PollenCard pollen={item} pollenKey={index} />
-        )}
+        renderItem={({ item, index }) =>
+          pollenList.length > 0 ? (
+            <PollenCard pollen={item} pollenKey={index} />
+          ) : null
+        }
         // Optional: Uncomment when needed
         // refreshControl={
         //   <RefreshControl

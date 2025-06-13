@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Text } from "react-native";
-import Card from "./Card";
-import GradientProgressBar from "./GradientProgressBar";
+import Card from "../common/Card";
+import GradientProgressBar from "../indicators/GradientProgressBar";
 import { useTranslation } from "react-i18next";
 import { Pollen } from "@/infrastructure/interfaces/pollen.interface";
 import { allergyRangeColors } from "@/constants/Colors";
+
 interface PollenCardProps {
   pollen: Pollen;
   pollenKey: number;
@@ -14,7 +15,7 @@ const PollenCard = ({ pollen, pollenKey }: PollenCardProps) => {
   return (
     <Card
       key={pollenKey}
-      className="bg-neutral-800 mb-3 p-4 flex-row items-center pt-3"
+      className="bg-neutral-800 mb-3 p-4 flex-row items-center pt-3 rounded-lg"
     >
       <View className="flex-1">
         <View className="flex-row items-center">
@@ -25,8 +26,9 @@ const PollenCard = ({ pollen, pollenKey }: PollenCardProps) => {
             className="text-[10px] ml-2"
             style={{ color: allergyRangeColors[pollen.allergyLevel.level] }}
           >
-            {t(`home_screen.allergyRanges.${pollen?.allergyLevel?.level}`)}{" "}
-            allergy risk
+            {t(
+              `components.alergyLabelIndicator.${pollen?.allergyLevel?.level}`
+            )}
           </Text>
         </View>
         <View className="flex-row items-center justify-between">
@@ -34,7 +36,12 @@ const PollenCard = ({ pollen, pollenKey }: PollenCardProps) => {
             progress={pollen.allergyLevel.percentage}
             id={pollenKey}
           />
-          <Text className="text-white ml-4">{pollen.value.toFixed()}</Text>
+          <View className="ml-4 items-center -mt-5">
+            <Text className="text-white">{pollen.value.toFixed()}</Text>
+            <Text className="text-gray-300 text-sm">
+              {t("components.description_pollenCard.label_pollen")}
+            </Text>
+          </View>
         </View>
       </View>
     </Card>
